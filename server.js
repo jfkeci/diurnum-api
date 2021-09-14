@@ -34,21 +34,20 @@ const logger = winston.createLogger({
 });
 
 //routes
-app.use('/bbetter/users', usersRoute)
+app.use('/diurnum/users', usersRoute)
 
 //connect to mongodb atlas
-mongoose
-    .connect(
-        process.env.DATABASE_URI,
-        {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        }
-    ).then(() => {
-        logger.info("Connected to mongodb atlas")
-    }).catch(error => {
-        logger.error(error.message)
-    })
+mongoose.connect(
+    process.env.DATABASE_URL,
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    }
+).then(() => {
+    logger.info("Connected to mongodb atlas")
+}).catch(error => {
+    logger.error(error.message)
+})
 
 app.listen(PORT, () => {
     logger.info(`Server started at port: ${PORT}`)
