@@ -9,6 +9,8 @@ const { createLogger } = require('winston')
 app.use(cors())
 
 const userRoute = require('./routes/user')
+const entryRoute = require('./routes/entry')
+
 
 
 const PORT = process.env.PORT || 3000
@@ -35,6 +37,8 @@ const logger = winston.createLogger({
 
 //routes
 app.use('/diurnum/user', userRoute)
+app.use('/diurnum/entry', entryRoute)
+
 
 //connect to mongodb atlas
 mongoose.connect(

@@ -3,13 +3,13 @@ const router = express.Router()
 
 const Entry = require('../models/entry')
 
-//POST: CREATE A NEW USER
+//POST: CREATE A NEW Entry
 router.post('/', async (req, res) => {
     const entry = new Entry({
-        userId: req.body.firstName,
-        title: req.body.lastName,
-        content: req.body.userName,
-        templateId: req.body.email,
+        userId: req.body.userId,
+        title: req.body.title,
+        content: req.body.content,
+        templateId: req.body.templateId,
     })
     entry.save().then(async (entry) => {
         res.json(entry)
@@ -22,8 +22,8 @@ router.post('/', async (req, res) => {
 
 //GET: GET ALL JOURNAL ENTRYS
 router.get('/', async (req, res) => {
-    const users = await User.find()
-        .then((users) => res.json(users))
+    const entrys = await Entry.find()
+        .then((entrys) => res.json(entrys))
         .catch((error) => {
             res.status(500).send({
                 message: `Something went wrong getting the data, error: ${error}`
@@ -31,41 +31,55 @@ router.get('/', async (req, res) => {
         })
 })
 
-//GET: GET USER BY ID
-router.get('/:userId', async (req, res) => {
-    const user = await User.findById(req.params.userId)
-    if (!user) res.status(404).send({
-        message: "User not found"
+//GET: GET ENTRY BY ID
+router.get('/:entryId', async (req, res) => {
+    const entry = await Entry.findById(req.params.entryId)
+    if (!entry) res.status(404).send({
+        message: "Entry not found"
     })
-    else res.json(user)
+    else res.json(entry)
 })
 
-//UPDATE USER BASED ON ID
-router.put('/:userId', async (req, res) => {
-    const updatedUser = await User.findByIdAndUpdate(
-        req.params.userId, {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        userName: req.body.userName,
-        email: req.body.email,
-        password: req.body.password,
+//UPDATE Entry BASED ON ID
+router.put('/:entryId', async (req, res) => {
+    const updatedEntry = await Entry.findByIdAndUpdate(
+        req.params.entryId, {
+        userId: req.body.userId,
+        title: req.body.title,
+        content: req.body.content,
+        templateId: req.body.templateId,
     },
         { new: true }
     )
 
-    if (!updatedUser) res.status(404).send({
-        message: "User not found"
+    if (!updatedEntry) res.status(404).send({
+        message: "Entry not found"
     })
-    else res.json(updatedUser)
+    else res.json(updatedEntry)
 })
 
-//DELETE USER
-router.delete('/:userId', async (req, res) => {
-    const user = await User.findByIdAndRemove(req.params.userId)
-    if (!user) res.status(404).send({
-        message: "User not found"
+//UPDATE Entry privacy BASED ON ID
+router.put('/:entryId', async (req, res) => {
+    const updatedEntry = await Entry.findByIdAndUpdate(
+        req.params.entryId, {
+        private: !updatedEntry.private
+    },
+        { new: true }
+    )
+
+    if (!updatedEntry) res.status(404).send({
+        message: "Entry not found"
     })
-    else res.json(user)
+    else res.json(updatedEntry)
+})
+
+//DELETE Entry
+router.delete('/:entryId', async (req, res) => {
+    const entry = await Entry.findByIdAndRemove(req.params.entryId)
+    if (!entry) res.status(404).send({
+        message: "Entry not found"
+    })
+    else res.json(entry)
 })
 
 
