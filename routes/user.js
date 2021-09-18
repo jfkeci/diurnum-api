@@ -33,13 +33,11 @@ router.post('/register', async (req, res) => {
         userName: req.body.userName,
         email: req.body.email,
         password: hashPassword,
-        gender: req.body.gender,
-        age: req.body.age
     })
     user.save().then(async (user) => {
         res.json(user)
     }).catch(error => {
-        res.status(500).send({
+        res.status(500).json({
             message: "User was not stored in the database" + error
         })
     })
@@ -90,8 +88,6 @@ router.put('/:userId', async (req, res) => {
         userName: req.body.userName,
         email: req.body.email,
         password: req.body.password,
-        gender: req.body.gender,
-        age: req.body.age
     },
         { new: true }
     )

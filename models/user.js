@@ -35,18 +35,6 @@ const UserSchema = new mongoose.Schema({
         minlength: 5,
         maxlength: 250
     },
-    gender: {
-        type: String,
-        required: true,
-        minlength: 1,
-        maxlength: 2
-    },
-    age: {
-        type: Number,
-        required: true,
-        min: 12,
-        max: 120
-    }
 }, { timestamps: true })
 
 const validateUser = (user) => {
@@ -56,8 +44,6 @@ const validateUser = (user) => {
         userName: yup.string().required().min(1).max(40),
         email: yup.string().required().min(5).max(250).email(),
         password: yup.string().required().min(5).max(250),
-        gender: yup.string().required().min(1).max(2),
-        age: yup.number().required().min(10).max(120)
     })
     return schema
         .validate(user)
