@@ -11,8 +11,7 @@ app.use(cors())
 const userRoute = require('./routes/user')
 const entryRoute = require('./routes/entry')
 const templateRoute = require('./routes/template')
-
-
+const categoryRoute = require('./routes/category')
 
 
 const PORT = process.env.PORT || 3000
@@ -41,6 +40,8 @@ const logger = winston.createLogger({
 app.use('/diurnum/user', userRoute)
 app.use('/diurnum/entry', entryRoute)
 app.use('/diurnum/template', templateRoute)
+app.use('/diurnum/category', categoryRoute)
+
 
 
 

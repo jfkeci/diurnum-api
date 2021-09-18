@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
-//Template schema
-const TemplateSchema = new mongoose.Schema({
+//Category schema
+const CategorySchema = new mongoose.Schema({
     userId: {
         type: String,
         required: true,
@@ -24,4 +24,4 @@ const TemplateSchema = new mongoose.Schema({
 }, { timestamps: true })
 
 
-module.exports = Template = new mongoose.model('Template', TemplateSchema) //named export
+module.exports = Category = new mongoose.model('Category', CategorySchema) //named export
