@@ -10,7 +10,8 @@ const TemplateSchema = new mongoose.Schema({
     },
     title: {
         type: String,
-        required: false,
+        required: true,
+        unique: true,
         minlength: 1,
         maxlength: 255
     },
